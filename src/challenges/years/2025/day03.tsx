@@ -1,10 +1,10 @@
-import Template from './Template.tsx';
-import type { Meta } from '../challenges/types.ts';
-import { real, example } from './dayTemp.data.ts';
+import Template from '../../../components/Template.tsx';
+import type { Meta } from '../../types';
+import { real, example } from './day03.data.ts';
 
-export const meta: Meta = { year: 2025, day: 1, status: 'started' };
+export const meta: Meta = { year: 2025, day: 3, status: 'started' };
 
-export default function Day02() {
+export default function Day03() {
   function parse(input: string) {
     return;
   }
@@ -23,7 +23,7 @@ export default function Day02() {
 
   return (
     <Template
-      meta={{ year: 0, day: 0, status: 'started' }}
+      meta={meta}
       methods={{ one, two }}
       input={{ example, real }}
     />

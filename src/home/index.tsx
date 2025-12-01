@@ -8,6 +8,10 @@ export default function Home() {
     return acc;
   }, {});
 
+  function copyToClipboard() {
+    navigator.clipboard.writeText('npm run create-new-day');
+  }
+
   return (
     <main className='main-menu'>
       <h1>Advent of Code</h1>
@@ -25,6 +29,7 @@ export default function Home() {
           </li>
         ))}
       </ul>
+      <button onClick={copyToClipboard} className='small'>Create new day with: npm run create-new-day</button>
     </main>
   );
 }

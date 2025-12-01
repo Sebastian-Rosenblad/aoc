@@ -20,6 +20,10 @@ button, a {
   cursor: pointer;
   text-decoration: none;
 
+  &.small {
+    font-size: .8rem;
+  }
+
   &:hover {
     color: #99ff99;
   }
