@@ -30,6 +30,7 @@ export default function Home() {
         ))}
       </ul>
       <button onClick={copyToClipboard} className='small'>Create new day with: npm run create-new-day</button>
+      <a href='https://adventofcode.com/' target="_blank" rel='noopener noreferrer' className='small'>Advent of Code</a>
     </main>
   );
 }
