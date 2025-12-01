@@ -1,0 +1,30 @@
+import { Link } from 'react-router-dom';
+import { challengesSorted } from '../challenges';
+import Stars from '../components/Stars';
+
+export default function Home() {
+  const groups = challengesSorted.reduce<Record<number, typeof challengesSorted>>((acc, c) => {
+    (acc[c.year] ||= []).push(c);
+    return acc;
+  }, {});
+
+  return (
+    <main className='main-menu'>
+      <h1>Advent of Code</h1>
+      <ul>
+        {Object.entries(groups).map(([year, items]) => (
+          <li key={year}>
+            <h2>{year}</h2>
+            <ul>
+              {items.map((c) => (
+                <li key={c.path}>
+                  <Link to={c.path}>Day {c.day.toString().padStart(2, '0')}</Link> <Stars status={c.status} />
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
+}

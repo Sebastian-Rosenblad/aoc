@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  background-color: #0f0f23;
+}
+
+h1, h2, p, li {
+  margin: 0;
+  color: #cccccc;
+  font-family: monospace;
+  font-size: 1.5rem;
+}
+
+button, a {
+  padding: 0;
+  background-color: transparent;
+  color: #009900;
+  font-family: monospace;
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    color: #99ff99;
+  }
+}
+
+.main-menu {
+  padding: 20px 30px;
+}
+
+.stars {
+  display: inline-block;
+  color: #333;
+
+  .silver {
+    color: silver;
+  }
+  .gold {
+    color: gold;
+  }
+}
+
+.page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+
+  .row {
+    display: flex;
+    gap: 10px;
+
+    p.solution {
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+
+      &:hover {
+        color: #99ff99;
+      }
+    }
+  }
+}
