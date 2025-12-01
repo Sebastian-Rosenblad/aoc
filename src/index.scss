@@ -34,14 +34,23 @@ button, a {
 }
 
 .stars {
+  position: relative;
   display: inline-block;
   color: #333;
+  font-size: 2rem;
+  line-height: 1.5rem;
 
+  .star {
+    position: absolute;
+    top: -16px;
+  }
   .silver {
-    color: silver;
+    color: #cccccc;
+    text-shadow: 0 0 5px #cccccc;
   }
   .gold {
-    color: gold;
+    color: #ffff66;
+    text-shadow: 0 0 5px #ffff66;
   }
 }
 
