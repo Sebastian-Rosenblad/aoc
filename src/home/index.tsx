@@ -1,16 +1,13 @@
 import { Link } from 'react-router-dom';
 import { challengesSorted } from '../challenges';
 import Stars from '../components/Stars';
+import copyText from '../utils/copy-text';
 
 export default function Home() {
   const groups = challengesSorted.reduce<Record<number, typeof challengesSorted>>((acc, c) => {
     (acc[c.year] ||= []).push(c);
     return acc;
   }, {});
-
-  function copyToClipboard() {
-    navigator.clipboard.writeText('npm run create-new-day');
-  }
 
   return (
     <main className='main-menu'>
@@ -29,7 +26,7 @@ export default function Home() {
           </li>
         ))}
       </ul>
-      <button onClick={copyToClipboard} className='small'>Create new day with: npm run create-new-day</button>
+      <button onClick={() => copyText('npm run create-new-day')} className='small'>Create new day with: npm run create-new-day</button>
       <a href='https://adventofcode.com/' target="_blank" rel='noopener noreferrer' className='small'>Advent of Code</a>
     </main>
   );

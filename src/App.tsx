@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './home';
 import { challengesSorted } from './challenges';
+import CopyToast from './components/CopyToast';
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
           <Route key={challenge.path} path={challenge.path} element={<challenge.Component />} />
         ))}
       </Routes>
+      <CopyToast />
     </BrowserRouter>
   );
 }

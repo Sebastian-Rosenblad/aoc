@@ -1,0 +1,22 @@
+@import '../index.scss';
+
+.toast-container {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 9999;
+
+  .toast {
+    color: $color-primary;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 80vw;
+    text-align: center;
+
+    p {
+      font-size: 1rem;
+    }
+  }
+}

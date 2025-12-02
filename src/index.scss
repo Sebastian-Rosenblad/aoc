@@ -1,11 +1,19 @@
+$bg-color: #0f0f23;
+$color-primary: #cccccc;
+$color-link: #009900;
+$color-hover: #99ff99;
+$star-none: #333;
+$star-silver: #9999cc;
+$star-gold: #ffff66;
+
 body {
   margin: 0;
-  background-color: #0f0f23;
+  background-color: $bg-color;
 }
 
 h1, h2, p, li {
   margin: 0;
-  color: #cccccc;
+  color: $color-primary;
   font-family: monospace;
   font-size: 1.5rem;
 }
@@ -16,7 +24,7 @@ ul {
 button, a {
   padding: 0;
   background-color: transparent;
-  color: #009900;
+  color: $color-link;
   font-family: monospace;
   font-size: 1.5rem;
   border: none;
@@ -28,7 +36,7 @@ button, a {
   }
 
   &:hover {
-    color: #99ff99;
+    color: $color-hover;
   }
 }
 
@@ -38,50 +46,4 @@ button, a {
   flex-direction: column;
   gap: 10px;
   padding: 20px 30px;
-}
-
-.stars {
-  position: relative;
-  display: inline-block;
-  color: #333;
-  font-size: 2rem;
-  line-height: 1.5rem;
-
-  .star {
-    position: absolute;
-    top: -16px;
-  }
-  .silver {
-    color: #9999cc;
-    text-shadow: 0 0 5px #9999cc;
-  }
-  .gold {
-    color: #ffff66;
-    text-shadow: 0 0 5px #ffff66;
-  }
-}
-
-.page {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  overflow: hidden;
-
-  .row {
-    display: flex;
-    gap: 10px;
-
-    p.solution {
-      padding: 5px 10px;
-      cursor: pointer;
-      border-radius: 5px;
-
-      &:hover {
-        color: #99ff99;
-      }
-    }
-  }
 }
