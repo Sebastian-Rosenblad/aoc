@@ -11,55 +11,46 @@ export default function Day02() {
   }
 
   function one(input: string): string {
-    const data = parse(input);
-    let solution = 0;
-    for (let i = 0; i < data.length; i++) {
-      let safe = true;
-      const dir = data[i][1] - data[i][0];
-      if (dir === 0 || Math.abs(dir) > 3) continue;
-      for (let j = 2; j < data[i].length; j++) {
-        if (!isSafe(dir, data[i][j] - data[i][j - 1])) {
-          safe = false;
-          break;
-        }
-      }
-      if (safe) solution += 1;
-    }
-    return solution.toString();
-  }
-
-  function isSafe(d: number, m: number) {
-    if (m === 0) return false;
-    if (d > 0 && m < 0) return false;
-    if (d < 0 && m > 0) return false;
-    if (Math.abs(m) > 3) return false;
-    return true;
+    return solve(parse(input), 'one').toString();
   }
 
   function two(input: string): string {
-    // not: 256, >307
-    const data = parse(input);
-    let solution = 0;
+    return solve(parse(input), 'two').toString();
+  }
+
+  function solve(data: number[][], part: 'one' | 'two') {
+    let numOfSafe = 0;
     for (let i = 0; i < data.length; i++) {
-      for (let r = -1; r < data[i].length; r++) {
-        let td = [...data[i]];
-        if (r >= 0) td.splice(r, 1);
+      const max = part === 'one' ? 0 : data[i].length;
+      for (let r = -1; r < max; r++) {
+        let heights = [...data[i]];
+        if (r >= 0) heights.splice(r, 1);
         let safe = true;
-        const dir = td[1] - td[0];
-        if (dir === 0 || Math.abs(dir) > 3) continue;
-        for (let j = 2; j < td.length; j++) {
-          if (!isSafe(dir, td[j] - td[j - 1])) {
+        const firstMove = heights[1] - heights[0];
+        if (!isSafe(firstMove)) continue;
+        for (let j = 2; j < heights.length; j++) {
+          if (!isSafe(heights[j] - heights[j - 1], firstMove)) {
             safe = false;
             break;
           }
         }
         if (safe) {
-          solution += 1;
+          numOfSafe += 1;
           break;
         }
       }
     }
-    return solution.toString();
+    return numOfSafe;
+  }
+
+  function isSafe(move: number, firstMove?: number) {
+    if (move === 0) return false;
+    if (Math.abs(move) > 3) return false;
+    if (firstMove !== undefined) {
+      if (firstMove > 0 && move < 0) return false;
+      if (firstMove < 0 && move > 0) return false;
+    }
+    return true;
   }
 
   return (
