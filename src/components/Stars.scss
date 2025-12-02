@@ -5,11 +5,12 @@
   display: inline-block;
   color: $star-none;
   font-size: 2rem;
+  font-weight: bold;
   line-height: 1.5rem;
 
   .star {
     position: absolute;
-    top: -16px;
+    top: -22px;
   }
   .silver {
     color: $star-silver;

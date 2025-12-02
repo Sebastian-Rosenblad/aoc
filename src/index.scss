@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
 $bg-color: #0f0f23;
 $color-primary: #cccccc;
 $color-link: #009900;
@@ -11,12 +13,13 @@ body {
   background-color: $bg-color;
 }
 
-h1, h2, p, li {
+h1, h2, p, li, button, a {
   margin: 0;
   color: $color-primary;
-  font-family: monospace;
+  font-family: "Source Code Pro", monospace;
   font-size: 1.5rem;
 }
+
 ul {
   margin: 5px 0;
 }
@@ -25,8 +28,6 @@ button, a {
   padding: 0;
   background-color: transparent;
   color: $color-link;
-  font-family: monospace;
-  font-size: 1.5rem;
   border: none;
   cursor: pointer;
   text-decoration: none;
