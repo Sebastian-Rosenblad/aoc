@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FiExternalLink } from 'react-icons/fi';
+import { FiCopy, FiExternalLink } from 'react-icons/fi';
 import { challengesSorted } from '../challenges';
 import Stars from '../components/Stars';
 import copyText from '../utils/copy-text';
@@ -27,7 +27,7 @@ export default function Home() {
           </li>
         ))}
       </ul>
-      <button onClick={() => copyText('npm run create-new-day')} className='small'>Create new day with: npm run create-new-day</button>
+      <button onClick={() => copyText('npm run create-new-day')} className='small'><FiCopy /> [npm run create-new-day]</button>
       <a href='https://adventofcode.com/' target='_blank' rel='noopener noreferrer' className='small'><FiExternalLink /> Advent of Code</a>
     </main>
   );
