@@ -11,31 +11,21 @@ export default function Day03() {
   }
 
   function one(input: string): string {
-    const banks = parse(input);
-    let solution = 0;
-    for (let i = 0; i < banks.length; i++) {
-      let max = Math.max(...banks[i]);
-      let index = banks[i].indexOf(max);
-      if (index === banks[i].length - 1) {
-        max = Math.max(...banks[i].slice(0, index));
-        index = banks[i].indexOf(max);
-      }
-      const secmax = Math.max(...banks[i].slice(index + 1));
-      const val = `${max}${secmax}`;
-      solution += parseInt(val);
-    }
-    return solution.toString();
+    return solve(parse(input), 2);
   }
 
   function two(input: string): string {
-    const banks = parse(input);
+    return solve(parse(input), 12);
+  }
+
+  function solve(banks: number[][], batteries: number) {
     let solution = 0;
     for (let i = 0; i < banks.length; i++) {
       let nums: number[] = [];
-      while (nums.length < 12) {
+      while (nums.length < batteries) {
         let max = Math.max(...banks[i]);
         let index = banks[i].indexOf(max);
-        while (index >= banks[i].length - (11 - nums.length)) {
+        while (index >= banks[i].length - (batteries - 1 - nums.length)) {
           max = Math.max(...banks[i].slice(0, index));
           index = banks[i].indexOf(max);
         }
