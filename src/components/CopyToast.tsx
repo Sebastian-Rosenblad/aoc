@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './CopyToast.scss';
+import { FiCopy } from 'react-icons/fi';
 
 export default function CopyToast() {
   const [visible, setVisible] = useState(false);
@@ -21,6 +22,7 @@ export default function CopyToast() {
   return (
     <div className='toast-container'>
       <div className='toast'>
+        <FiCopy />
         <p>Copied to clipboard</p>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Template.scss';
+import { FiExternalLink } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { Meta } from '../challenges';
 import Stars from './Stars';
@@ -50,6 +51,7 @@ export default function Template({ meta, methods, input }: Props) {
         <button onClick={() => handleClick('two', 'real')}>[Real]</button>
       </div>
       {time !== null && <p>Calculated in {time.toFixed(2)} ms</p>}
+      <a href={`https://adventofcode.com/${meta.year}/day/${meta.day}`} target='_blank' rel='noopener noreferrer' className='small'><FiExternalLink /> Puzzle</a>
     </article>
   );
 }
