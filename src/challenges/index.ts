@@ -2,7 +2,7 @@ import { Meta, Status, Times } from './types';
 
 const req = require.context('../challenges/years', true, /day\d+\.tsx$/);
 
-interface ChallengeEntry extends Meta {
+export interface ChallengeEntry extends Meta {
   path: string;
   Component: React.ComponentType;
 };

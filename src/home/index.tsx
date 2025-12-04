@@ -1,7 +1,7 @@
 import './styles.scss';
 import { Link } from 'react-router-dom';
 import { FiCopy, FiExternalLink } from 'react-icons/fi';
-import { challengesSorted } from '../challenges';
+import { ChallengeEntry, challengesSorted } from '../challenges';
 import Stars from '../components/Stars';
 import Times from '../components/Times';
 import copyText from '../utils/copy-text';
@@ -12,20 +12,24 @@ export default function Home() {
     return acc;
   }, {});
 
+  function getTotalStars(challenges: ChallengeEntry[]) {
+    return challenges.reduce((total, c) => total + (c.status === 'gold' ? 2 : c.status === 'silver' ? 1 : 0), 0);
+  }
+
   return (
     <main className='main-menu'>
       <div className='main-header'>
         <h1>Advent of Code</h1>
         <h2 className='quiet'>Solutions by Sebastian Rosenblad</h2>
       </div>
-      <ul>
+      <ul className='years-list'>
         {Object.entries(groups).map(([year, items]) => (
           <li key={year}>
-            <h2>{year}</h2>
+            <h2>{year} <span className='quiet'>- <Stars stars={['gold']} small />{getTotalStars(items)}/{year === '2025' ? 24 : 50}</span></h2>
             <ul>
               {items.map((c) => (
                 <li key={c.path}>
-                  <Link to={c.path}>Day {c.day.toString().padStart(2, '0')}</Link> <Stars status={c.status} /> {c.times && <Times times={c.times} />}
+                  <Link to={c.path}>[Day {c.day.toString().padStart(2, '0')}]</Link><Stars status={c.status} small /> {c.times && <p className='small'><Times times={c.times} /></p>}
                 </li>
               ))}
             </ul>

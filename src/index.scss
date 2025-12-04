@@ -24,14 +24,6 @@ h1, h2, p, li, button, a {
   &.small {
     font-size: .8rem;
   }
-  
-  &.quiet {
-    color: $color-quiet;
-  }
-}
-
-ul {
-  margin: 5px 0;
 }
 
 button, a {
@@ -45,4 +37,8 @@ button, a {
   &:hover {
     color: $color-hover;
   }
+}
+
+.quiet {
+  color: $color-quiet;
 }

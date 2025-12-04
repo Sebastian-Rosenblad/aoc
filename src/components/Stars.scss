@@ -7,10 +7,16 @@
   font-weight: bold;
   line-height: 1.5rem;
 
+  &.small {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+
   .silver {
     color: $star-silver;
     text-shadow: 0 0 5px $star-silver;
   }
+
   .gold {
     color: $star-gold;
     text-shadow: 0 0 5px $star-gold;
