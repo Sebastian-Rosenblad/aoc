@@ -10,59 +10,47 @@ export default function Day04() {
   }
 
   function one(input: string): string {
-    const data = parse(input);
-    let solution = 0;
-    const adjacents: number[][] = new Array(data.length).fill(0).map(() => new Array(data[0].length).fill(0));
-    const rollsIndexes: number[] = [];
-    for (let i = 0; i < data.length; i++) {
-      for (let j = 0; j < data[i].length; j++) {
-        if (data[i][j] === '@') {
-          rollsIndexes.push(i, j);
-          for (let m = i - 1; m <= i + 1; m++) {
-            for (let n = j - 1; n <= j + 1; n++) {
-              if (m === i && n === j) continue;
-              if (m >= 0 && m < data.length && n >= 0 && n < data[i].length) adjacents[m][n]++;
-            }
-          }
-        }
-      }
-    }
-    for (let i = 0; i < rollsIndexes.length; i += 2) {
-      if (adjacents[rollsIndexes[i]][rollsIndexes[i + 1]] < 4) solution++;
-    }
-    return solution.toString();
+    return solve(input, 1);
   }
 
   function two(input: string): string {
-    const data = parse(input);
-    let solution = 0;
-    let newRolls = 0;
+    return solve(input, 2);
+  }
+
+  function solve(input: string, part: 1 | 2) {
+    const map = parse(input);
+    let solution = 0, newRolls = 0;
     do {
       newRolls = 0;
-      const adjacents: number[][] = new Array(data.length).fill(0).map(() => new Array(data[0].length).fill(0));
-      const rollsIndexes: number[] = [];
-      for (let i = 0; i < data.length; i++) {
-        for (let j = 0; j < data[i].length; j++) {
-          if (data[i][j] === '@') {
-            rollsIndexes.push(i, j);
-            for (let m = i - 1; m <= i + 1; m++) {
-              for (let n = j - 1; n <= j + 1; n++) {
-                if (m === i && n === j) continue;
-                if (m >= 0 && m < data.length && n >= 0 && n < data[i].length) adjacents[m][n]++;
-              }
+      const adjacents: number[][] = getHeightMap(map);
+      for (let i = 0; i < map.length; i++) {
+        for (let j = 0; j < map[i].length; j++) {
+          if (map[i][j] === '@' && adjacents[i][j] < 4) {
+            solution++;
+            newRolls++;
+            map[i][j] = '.';
+          }
+        }
+      }
+    } while (part === 2 && newRolls > 0);
+    return solution.toString();
+  }
+
+  function getHeightMap(map: string[][]) {
+    const heightMap: number[][] = new Array(map.length).fill(0).map(() => new Array(map[0].length).fill(0));
+    for (let i = 0; i < map.length; i++) {
+      for (let j = 0; j < map[i].length; j++) {
+        if (map[i][j] === '@') {
+          for (let m = i - 1; m <= i + 1; m++) {
+            for (let n = j - 1; n <= j + 1; n++) {
+              if (m === i && n === j) continue;
+              if (m >= 0 && m < map.length && n >= 0 && n < map[i].length) heightMap[m][n]++;
             }
           }
         }
       }
-      for (let i = 0; i < rollsIndexes.length; i += 2) {
-        if (adjacents[rollsIndexes[i]][rollsIndexes[i + 1]] < 4) {
-          solution++;
-          newRolls++;
-          data[rollsIndexes[i]][rollsIndexes[i + 1]] = '.';
-        }
-      }
-    } while (newRolls > 0);
-    return solution.toString();
+    }
+    return heightMap;
   }
 
   return (
