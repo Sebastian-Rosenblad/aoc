@@ -1,4 +1,4 @@
-export type Status = 'started' | 'silver' | 'gold';
+export type Status = 'started' | 'silver' | 'gold' | 'other';
 
 export type Meta = {
   year: number;
