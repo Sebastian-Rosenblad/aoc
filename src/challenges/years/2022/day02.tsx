@@ -11,12 +11,14 @@ export default function Day02() {
 
   function one(input: string): string {
     const data = parse(input);
+    console.log(data);
     let solution = 0;
     return solution.toString();
   }
 
   function two(input: string): string {
     const data = parse(input);
+    console.log(data);
     let solution = 0;
     return solution.toString();
   }

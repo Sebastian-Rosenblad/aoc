@@ -1,10 +1,10 @@
 import Template from '../../../components/Template.tsx';
 import type { Meta } from '../../types';
-import { real, example } from './day20.data.ts';
+import { real, example } from './day21.data.ts';
 
-export const meta: Meta = { year: 2022, day: 20, status: 'other' };
+export const meta: Meta = { year: 2023, day: 21, status: 'started' };
 
-export default function Day20() {
+export default function Day21() {
   function parse(input: string) {
     return;
   }
