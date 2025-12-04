@@ -1,3 +1,4 @@
+import './styles.scss';
 import { Link } from 'react-router-dom';
 import { FiCopy, FiExternalLink } from 'react-icons/fi';
 import { challengesSorted } from '../challenges';
@@ -12,7 +13,10 @@ export default function Home() {
 
   return (
     <main className='main-menu'>
-      <h1>Advent of Code</h1>
+      <div className='main-header'>
+        <h1>Advent of Code</h1>
+        <h2 className='quiet'>Solutions by Sebastian Rosenblad</h2>
+      </div>
       <ul>
         {Object.entries(groups).map(([year, items]) => (
           <li key={year}>
@@ -27,6 +31,7 @@ export default function Home() {
           </li>
         ))}
       </ul>
+      <p className='small quiet'>Links:</p>
       <button onClick={() => copyText('npm run create-new-day')} className='small'><FiCopy /> [npm run create-new-day]</button>
       <a href='https://adventofcode.com/' target='_blank' rel='noopener noreferrer' className='small'><FiExternalLink /> Advent of Code</a>
     </main>

@@ -2,6 +2,7 @@
 
 $bg-color: #0f0f23;
 $color-primary: #cccccc;
+$color-quiet: #666666;
 $color-link: #009900;
 $color-hover: #99ff99;
 $star-none: #333;
@@ -19,6 +20,14 @@ h1, h2, p, li, button, a {
   font-family: "Source Code Pro", monospace;
   font-size: 1.5rem;
   font-weight: 400;
+
+  &.small {
+    font-size: .8rem;
+  }
+  
+  &.quiet {
+    color: $color-quiet;
+  }
 }
 
 ul {
@@ -33,19 +42,7 @@ button, a {
   cursor: pointer;
   text-decoration: none;
 
-  &.small {
-    font-size: .8rem;
-  }
-
   &:hover {
     color: $color-hover;
   }
-}
-
-.main-menu {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 10px;
-  padding: 20px 30px;
 }
