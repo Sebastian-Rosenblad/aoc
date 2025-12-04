@@ -2,7 +2,7 @@ import Template from '../../../components/Template.tsx';
 import type { Meta } from '../../types';
 import { real, example } from './day02.data.ts';
 
-export const meta: Meta = { year: 2025, day: 2, status: 'gold' };
+export const meta: Meta = { year: 2025, day: 2, status: 'gold', times: { one: 646, two: 1522 } };
 
 export default function Day02() {
   function parse(input: string) {

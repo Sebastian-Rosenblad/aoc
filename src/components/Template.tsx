@@ -4,6 +4,7 @@ import { FiExternalLink } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { Meta } from '../challenges';
 import Stars from './Stars';
+import Times from './Times';
 import copyText from '../utils/copy-text';
 
 interface Props {
@@ -39,7 +40,10 @@ export default function Template({ meta, methods, input }: Props) {
 
   return (
     <article className='page'>
-      <h1>{renderBack()} {meta.year} - Day {meta.day} <Stars status={meta.status} /></h1>
+      <div className='page-header'>
+        <h1>{renderBack()} {meta.year} - Day {meta.day} <Stars status={meta.status} /></h1>
+        {meta.times && <p className='small'><Times times={meta.times} /></p>}
+      </div>
       <div className='row'>
         <p onClick={() => copyText(solution.one!)} className='solution'>Part 1: {solution.one || '-'}</p>
         <button onClick={() => handleClick('one', 'example')}>[Example]</button>

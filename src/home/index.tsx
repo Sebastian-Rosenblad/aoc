@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiCopy, FiExternalLink } from 'react-icons/fi';
 import { challengesSorted } from '../challenges';
 import Stars from '../components/Stars';
+import Times from '../components/Times';
 import copyText from '../utils/copy-text';
 
 export default function Home() {
@@ -24,7 +25,7 @@ export default function Home() {
             <ul>
               {items.map((c) => (
                 <li key={c.path}>
-                  <Link to={c.path}>Day {c.day.toString().padStart(2, '0')}</Link> <Stars status={c.status} />
+                  <Link to={c.path}>Day {c.day.toString().padStart(2, '0')}</Link> <Stars status={c.status} /> {c.times && <Times times={c.times} />}
                 </li>
               ))}
             </ul>

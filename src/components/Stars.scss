@@ -1,17 +1,12 @@
 @import '../index.scss';
 
 .stars {
-  position: relative;
-  display: inline-block;
+  display: inline-flex;
   color: $star-none;
   font-size: 2rem;
   font-weight: bold;
   line-height: 1.5rem;
 
-  .star {
-    position: absolute;
-    top: -22px;
-  }
   .silver {
     color: $star-silver;
     text-shadow: 0 0 5px $star-silver;

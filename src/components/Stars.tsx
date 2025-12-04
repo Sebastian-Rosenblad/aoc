@@ -1,5 +1,5 @@
-import { Status } from '../challenges/types';
 import './Stars.scss';
+import { Status } from '../challenges/types';
 
 interface Props {
   status: Status;

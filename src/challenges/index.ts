@@ -1,12 +1,9 @@
-import { Status, Meta } from './types';
+import { Meta, Status, Times } from './types';
 
 const req = require.context('../challenges/years', true, /day\d+\.tsx$/);
 
-type ChallengeEntry = {
+interface ChallengeEntry extends Meta {
   path: string;
-  year: number;
-  day: number;
-  status: Status;
   Component: React.ComponentType;
 };
 
@@ -26,6 +23,7 @@ export const challenges: ChallengeEntry[] = req.keys().map((key: any) => {
   const meta = (mod.meta ?? {}) as {
     title?: string;
     status?: Status;
+    times?: Times;
   };
 
   const path = `/${ymd.year}/day/${ymd.day}`;
@@ -33,8 +31,8 @@ export const challenges: ChallengeEntry[] = req.keys().map((key: any) => {
     path,
     year: ymd.year,
     day: ymd.day,
-    title: meta.title,
     status: meta.status ?? 'started',
+    times: meta.times,
     Component: mod.default,
   };
 });
