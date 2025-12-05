@@ -32,7 +32,7 @@ export default function Day05() {
   }
 
   function two(input: string): string {
-    const { ranges, ingredients } = parse(input);
+    const { ranges } = parse(input);
     let solution = 0;
     for (const range of ranges) solution += range[1] - range[0] + 1;
     return solution.toString();
