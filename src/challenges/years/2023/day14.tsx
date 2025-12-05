@@ -2,7 +2,7 @@ import Template from '../../../components/Template.tsx';
 import type { Meta } from '../../types';
 import { real, example } from './day14.data.ts';
 
-export const meta: Meta = { year: 2023, day: 14, status: 'gold', times: { one: 1116, two: 5107 } };
+export const meta: Meta = { year: 2023, day: 14, status: 'gold', times: { one: 1116, two: 5107 }, note: 'Very slow part 2.' };
 
 interface CoordsM {
   x: number;

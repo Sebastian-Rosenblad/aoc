@@ -55,6 +55,7 @@ export default function Template({ meta, methods, input }: Props) {
         <button onClick={() => handleClick('two', 'real')}>[Real]</button>
       </div>
       {time !== null && <p>Calculated in {time.toFixed(2)} ms</p>}
+      {meta.note && <p className='small'>{meta.note}</p>}
       <a href={`https://adventofcode.com/${meta.year}/day/${meta.day}`} target='_blank' rel='noopener noreferrer' className='small'><FiExternalLink /> Puzzle</a>
     </article>
   );

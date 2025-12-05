@@ -5,6 +5,7 @@ export type Meta = {
   day: number;
   status: Status;
   times?: Times;
+  note?: string;
 };
 export interface Times {
   one: number;

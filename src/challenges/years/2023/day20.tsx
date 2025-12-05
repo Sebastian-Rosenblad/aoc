@@ -2,7 +2,7 @@ import Template from '../../../components/Template.tsx';
 import type { Meta } from '../../types';
 import { real, example } from './day20.data.ts';
 
-export const meta: Meta = { year: 2023, day: 20, status: 'gold', times: { one: 86400, two: 86400 } };
+export const meta: Meta = { year: 2023, day: 20, status: 'gold', times: { one: 86400, two: 86400 }, note: 'Very slow part 2.' };
 
 interface ModuleM {
   label: string;
