@@ -11,7 +11,7 @@ export default function Day03() {
 
   function one(input: string): string {
     const data = parse(input).map((line) => [line.slice(0, line.length / 2), line.slice(line.length / 2)]);
-    return solve(data)
+    return solve(data);
   }
 
   function two(input: string): string {
