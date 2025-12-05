@@ -14,15 +14,14 @@ export default function Day05() {
       if (lines[i] !== '') ingredients.push(Number(lines[i]));
       i++;
     }
-    return { ranges, ingredients };
+    return { ranges: mergeRanges(ranges), ingredients };
   }
 
   function one(input: string): string {
     const { ranges, ingredients } = parse(input);
-    const mrs = mergeRanges(ranges);
     let solution = 0;
     for (const ingredient of ingredients) {
-      for (const [start, end] of mrs) {
+      for (const [start, end] of ranges) {
         if (ingredient >= start && ingredient <= end) {
           solution++;
           break;
@@ -34,11 +33,8 @@ export default function Day05() {
 
   function two(input: string): string {
     const { ranges, ingredients } = parse(input);
-    const mrs = mergeRanges(ranges);
     let solution = 0;
-    for (const range of mrs) {
-      solution += range[1] - range[0] + 1;
-    }
+    for (const range of ranges) solution += range[1] - range[0] + 1;
     return solution.toString();
   }
 
@@ -46,11 +42,8 @@ export default function Day05() {
     ranges.sort((a, b) => a[0] - b[0]);
     const merged: number[][] = [];
     for (const range of ranges) {
-      if (merged.length === 0 || merged[merged.length - 1][1] < range[0]) {
-        merged.push(range);
-      } else {
-        merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], range[1]);
-      }
+      if (merged.length === 0 || merged[merged.length - 1][1] < range[0]) merged.push(range);
+      else merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], range[1]);
     }
     return merged;
   }
