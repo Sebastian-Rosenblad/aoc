@@ -25,7 +25,10 @@ export default function Home() {
       <ul className='years-list'>
         {Object.entries(groups).map(([year, items]) => (
           <li key={year}>
-            <h2>{year} <span className='quiet'>- <Stars stars={['gold']} small />{getTotalStars(items)}/{year === '2025' ? 24 : 50}</span></h2>
+            <h2>
+              <a href={`https://adventofcode.com/${year}`} target='_blank' rel='noopener noreferrer'>[{year}]</a>
+              <span className='quiet'> - <Stars stars={['gold']} small />{getTotalStars(items)}/{year === '2025' ? 24 : 50}</span>
+            </h2>
             <ul>
               {items.map((c) => (
                 <li key={c.path}>
@@ -37,8 +40,8 @@ export default function Home() {
         ))}
       </ul>
       <p className='small quiet'>Links:</p>
-      <button onClick={() => copyText('npm run create-new-day')} className='small'><FiCopy /> [npm run create-new-day]</button>
-      <a href='https://adventofcode.com/' target='_blank' rel='noopener noreferrer' className='small'><FiExternalLink /> Advent of Code</a>
+      <button onClick={() => copyText('npm run create-new-day')} className='small align-icon'><FiCopy /> [npm run create-new-day]</button>
+      <a href='https://adventofcode.com/' target='_blank' rel='noopener noreferrer' className='small align-icon'><FiExternalLink /> Advent of Code</a>
     </main>
   );
 }
