@@ -24,10 +24,10 @@ export default function Home() {
       </div>
       <ul className='years-list'>
         {Object.entries(groups).map(([year, items]) => (
-          <li key={year}>
+          <li key={year} className='year-list'>
             <h2>
               <a href={`https://adventofcode.com/${year}`} target='_blank' rel='noopener noreferrer'>[{year}]</a>
-              <span className='quiet'> - <Stars stars={['gold']} small />{getTotalStars(items)}/{year === '2025' ? 24 : 50}</span>
+              <span className='quiet'> <Stars stars={['gold']} small />{getTotalStars(items)}/{year === '2025' ? 24 : 50}</span>
             </h2>
             <ul>
               {items.map((c) => (

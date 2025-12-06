@@ -30,6 +30,10 @@ ul {
   &.years-list {
     display: flex;
     gap: 50px;
+
+    li.year-list {
+      min-width: 190px;
+    }
   }
 }
 
