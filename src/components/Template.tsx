@@ -54,9 +54,9 @@ export default function Template({ meta, methods, input }: Props) {
         <button onClick={() => handleClick('two', 'example')}>[Example]</button>
         <button onClick={() => handleClick('two', 'real')}>[Real]</button>
       </div>
-      {meta.visualization && <Link to={`/${meta.year}/day/${meta.day}/visualization`} className='align-icon'><FiImage />[Visualization]</Link>}
       {time !== null && <p>Calculated in {time.toFixed(2)} ms</p>}
       {meta.note && <p className='small align-icon'><FiInfo />{meta.note}</p>}
+      {meta.visualization && <Link to={`/${meta.year}/day/${meta.day}/visualization`} className='small align-icon'><FiImage />[Visualization]</Link>}
       <a href={`https://adventofcode.com/${meta.year}/day/${meta.day}`} target='_blank' rel='noopener noreferrer' className='small align-icon'><FiExternalLink />Puzzle</a>
     </article>
   );
