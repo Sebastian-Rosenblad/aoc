@@ -1,6 +1,6 @@
 import './styles.scss';
 import { Link } from 'react-router-dom';
-import { FiCopy, FiExternalLink } from 'react-icons/fi';
+import { FiCopy, FiExternalLink, FiImage } from 'react-icons/fi';
 import { ChallengeEntry, challengesSorted } from '../challenges';
 import Stars from '../components/Stars';
 import Times from '../components/Times';
@@ -32,7 +32,12 @@ export default function Home() {
             <ul>
               {items.map((c) => (
                 <li key={c.path}>
-                  <Link to={c.path}>[Day {c.day.toString().padStart(2, '0')}]</Link><Stars status={c.status} small /> {c.times && <p className='small'><Times times={c.times} /></p>}
+                  <span className='day-main'>
+                    <Link to={c.path}>[Day {c.day.toString().padStart(2, '0')}]</Link>
+                    <Stars status={c.status} small />
+                    {c.visualization && <FiImage />}
+                  </span>
+                  {c.times && <p className='small'><Times times={c.times} /></p>}
                 </li>
               ))}
             </ul>

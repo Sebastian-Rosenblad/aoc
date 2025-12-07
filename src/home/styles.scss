@@ -25,6 +25,17 @@ ul {
     flex-direction: column;
     flex-wrap: wrap;
     margin-left: 20px;
+
+    li {
+      .day-main {
+        display: flex;
+        align-items: center;
+
+        svg {
+          color: $star-other;
+        }
+      }
+    }
   }
 
   &.years-list {
