@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Visualization from '../../../components/Visualization.tsx';
 import { real, example } from './day04.data.ts';
 
@@ -9,6 +9,8 @@ interface Cell {
 }
 
 export default function Day04Visualization() {
+  const [result, setResult] = useState<[number, number]>([-1, -1]);
+
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationIdRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number | null>(null);
@@ -24,6 +26,7 @@ export default function Day04Visualization() {
     const data = (input === 'example' ? example : real).split('\n');
     cellSize = Math.floor(Math.min(700 / (data[0].length + 1), 700 / (data.length + 1)));
     cellsRef.current = cellsFromMap(data);
+    setResult([0, 0]);
     mapRef.current = data;
     updateTimeRef.current = 0;
     lastTimeRef.current = null;
@@ -72,6 +75,10 @@ export default function Day04Visualization() {
         }
       }
       cellsRef.current = newCells;
+      setResult(prev => {
+        const newResult = prev[1] + cellsToRemove.length;
+        return [prev[0] === 0 ? cellsToRemove.length : prev[0], newResult];
+      });
       if (newCells.filter(cell => cell.state !== 1).length === 0) shouldEnd = true;
     }
     updateTimeRef.current = newUpdateTime;
@@ -132,6 +139,14 @@ export default function Day04Visualization() {
         width={700}
         height={700}
       />
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0
+      }}>
+        <p>Part 1: {result[0] === -1 ? '-' : result[0]}</p>
+        <p>Part 2: {result[1] === -1 ? '-' : result[1]}</p>
+      </div>
     </Visualization>
   );
 }
