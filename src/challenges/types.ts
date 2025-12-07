@@ -6,6 +6,7 @@ export type Meta = {
   status: Status;
   times?: Times;
   note?: string;
+  visualization?: React.ComponentType;
 };
 export interface Times {
   one: number;

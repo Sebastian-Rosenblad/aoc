@@ -9,7 +9,10 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         {challengesSorted.map((challenge) => (
-          <Route key={challenge.path} path={challenge.path} element={<challenge.Component />} />
+          <>
+            <Route key={challenge.path} path={challenge.path} element={<challenge.Component />} />
+            {challenge.visualization && <Route path={`${challenge.path}/visualization`} element={<challenge.visualization />} />}
+          </>
         ))}
       </Routes>
       <CopyToast />

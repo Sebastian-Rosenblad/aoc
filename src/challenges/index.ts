@@ -24,6 +24,7 @@ export const challenges: ChallengeEntry[] = req.keys().map((key: any) => {
     title?: string;
     status?: Status;
     times?: Times;
+    visualization?: React.ComponentType;
   };
 
   const path = `/${ymd.year}/day/${ymd.day}`;
@@ -34,6 +35,7 @@ export const challenges: ChallengeEntry[] = req.keys().map((key: any) => {
     status: meta.status ?? 'started',
     times: meta.times,
     Component: mod.default,
+    visualization: meta.visualization,
   };
 });
 
