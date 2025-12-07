@@ -22,6 +22,12 @@ export default function Home() {
         <h1>Advent of Code</h1>
         <h2 className='quiet'>Solutions by Sebastian Rosenblad</h2>
       </div>
+      <div className='main-links'>
+        <p className='small quiet'>Links:</p>
+        <button onClick={() => copyText('npm run create-new-day')} className='small align-icon'><FiCopy /> [npm run create-new-day]</button>
+        <p className='small quiet'>|</p>
+        <a href='https://adventofcode.com/' target='_blank' rel='noopener noreferrer' className='small align-icon'><FiExternalLink /> Advent of Code</a>
+      </div>
       <ul className='years-list'>
         {Object.entries(groups).map(([year, items]) => (
           <li key={year} className='year-list'>
@@ -44,9 +50,6 @@ export default function Home() {
           </li>
         ))}
       </ul>
-      <p className='small quiet'>Links:</p>
-      <button onClick={() => copyText('npm run create-new-day')} className='small align-icon'><FiCopy /> [npm run create-new-day]</button>
-      <a href='https://adventofcode.com/' target='_blank' rel='noopener noreferrer' className='small align-icon'><FiExternalLink /> Advent of Code</a>
     </main>
   );
 }
