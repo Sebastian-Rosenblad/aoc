@@ -1,8 +1,9 @@
 import Template from '../../../components/Template.tsx';
 import type { Meta } from '../../types';
 import { real, example } from './day07.data.ts';
+import visualization from './day07.visualization.tsx';
 
-export const meta: Meta = { year: 2025, day: 7, status: 'gold', times: { one: 944, two: 1373 } };
+export const meta: Meta = { year: 2025, day: 7, status: 'gold', times: { one: 944, two: 1373 }, visualization };
 
 interface Beam {
   x: number;
