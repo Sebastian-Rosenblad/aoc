@@ -19,14 +19,14 @@ export default function Visualization({ day, year, render, children }: Props) {
         <section className='sidebar'>
           {render.one !== undefined && (
             <>
-              <h2>Part One</h2>
+              {render.two !== undefined && <h2>Part One</h2>}
               <button onClick={() => render.one?.('example')}>[Example]</button>
               <button onClick={() => render.one?.('real')}>[Real]</button>
             </>
           )}
           {render.two !== undefined && (
             <>
-              <h2>Part Two</h2>
+              {render.one !== undefined && <h2>Part Two</h2>}
               <button onClick={() => render.two?.('example')}>[Example]</button>
               <button onClick={() => render.two?.('real')}>[Real]</button>
             </>
