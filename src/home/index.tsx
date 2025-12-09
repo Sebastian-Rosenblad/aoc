@@ -41,7 +41,7 @@ export default function Home() {
                   <span className='day-main'>
                     <Link to={c.path}>[Day {c.day.toString().padStart(2, '0')}]</Link>
                     <Stars status={c.status} small />
-                    {c.visualization && <FiImage />}
+                    {c.visualization && <Link to={`${c.path}/visualization`} className='visualization-link'><FiImage /></Link>}
                   </span>
                   {c.times && <p className='small'><Times times={c.times} /></p>}
                 </li>

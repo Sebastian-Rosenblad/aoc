@@ -11,7 +11,7 @@ interface Props {
 export default function Visualization({ day, year, render, children }: Props) {
   return (
     <article className='visualization'>
-      <h1><Link to={`/${year}/day/${day}`}>&lt;</Link> Visualization - Day {day} Year {year}</h1>
+      <h1><Link to={`/`}>&lt;</Link> Visualization - Day {day} Year {year}</h1>
       <div className='visualization-content'>
         <section className='sidebar'>
           <button onClick={() => render('example')}>[Example]</button>
