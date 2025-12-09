@@ -19,8 +19,8 @@ export default function Home() {
   return (
     <main className='main-menu'>
       <div className='main-header'>
-        <h1>Advent of Code</h1>
-        <h2 className='quiet'>Solutions by Sebastian Rosenblad</h2>
+        <h1>Solutions  for AoC</h1>
+        <h2 className='quiet'>by Sebastian Rosenblad</h2>
       </div>
       <div className='main-links'>
         <p className='small quiet'>Links:</p>
