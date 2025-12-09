@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import Visualization from '../../../components/Visualization.tsx';
+import { useAnimationLoop } from '../../../utils/useAnimationLoop.ts';
 import { real, example } from './day04.data.ts';
 
 interface Cell {
@@ -12,25 +13,23 @@ export default function Day04Visualization() {
   const [result, setResult] = useState<[number, number]>([-1, -1]);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const animationIdRef = useRef<number | null>(null);
-  const lastTimeRef = useRef<number | null>(null);
-  const updateTimeRef = useRef<number>(0);
   const mapRef = useRef<string[]>([]);
   const cellsRef = useRef<Cell[]>([]);
 
-  const animationSpeed = 75;
   let cellSize = 0;
 
+  const { start } = useAnimationLoop({
+    animationSpeed: 75,
+    initialize,
+    step
+  });
+
   function initialize(input: 'example' | 'real') {
-    if (animationIdRef.current !== null) return;
     const data = (input === 'example' ? example : real).split('\n');
     cellSize = Math.floor(Math.min(700 / (data[0].length + 1), 700 / (data.length + 1)));
     cellsRef.current = cellsFromMap(data);
-    setResult([0, 0]);
     mapRef.current = data;
-    updateTimeRef.current = 0;
-    lastTimeRef.current = null;
-    animationIdRef.current = requestAnimationFrame(loop);
+    setResult([0, 0]);
   }
 
   function cellsFromMap(map: string[]) {
@@ -41,50 +40,39 @@ export default function Day04Visualization() {
     return cells;
   }
 
-  function loop(timestamp: number) {
-    const lastTime = lastTimeRef.current;
-    const dt = lastTime === null ? 0 : timestamp - lastTime;
-    lastTimeRef.current = timestamp;
-    let newUpdateTime = updateTimeRef.current + dt;
-    let shouldEnd = false;
-    if (newUpdateTime >= animationSpeed) {
-      newUpdateTime %= animationSpeed;
-      let newMap = mapRef.current.slice();
-      const adjacents: number[][] = getHeightMap(newMap);
-      const cellsToRemove: { x: number; y: number }[] = [];
-      for (let i = 0; i < newMap.length; i++) {
-        for (let j = 0; j < newMap[i].length; j++) {
-          if (newMap[i][j] === '@' && adjacents[i][j] < 4) {
-            newMap[i] = newMap[i].substring(0, j) + '.' + newMap[i].substring(j + 1);
-            cellsToRemove.push({ x: j, y: i });
-          }
+  function step() {
+    let newMap = mapRef.current.slice();
+    const adjacents: number[][] = getHeightMap(newMap);
+    const cellsToRemove: { x: number; y: number }[] = [];
+    for (let i = 0; i < newMap.length; i++) {
+      for (let j = 0; j < newMap[i].length; j++) {
+        if (newMap[i][j] === '@' && adjacents[i][j] < 4) {
+          newMap[i] = newMap[i].substring(0, j) + '.' + newMap[i].substring(j + 1);
+          cellsToRemove.push({ x: j, y: i });
         }
       }
-      mapRef.current = newMap;
-      let newCells = cellsRef.current.slice();
-      for (let i = newCells.length - 1; i >= 0; i--) {
-        if (newCells[i].state !== 1) newCells[i].state++;
-        if (newCells[i].state > 4) newCells.splice(i, 1);
-      }
-      for (const rem of cellsToRemove) {
-        for (const cell of newCells) {
-          if (cell.x === rem.x && cell.y === rem.y) {
-            cell.state = 2;
-            break;
-          }
-        }
-      }
-      cellsRef.current = newCells;
-      setResult(prev => {
-        const newResult = prev[1] + cellsToRemove.length;
-        return [prev[0] === 0 ? cellsToRemove.length : prev[0], newResult];
-      });
-      if (newCells.filter(cell => cell.state !== 1).length === 0) shouldEnd = true;
     }
-    updateTimeRef.current = newUpdateTime;
+    mapRef.current = newMap;
+    let newCells = cellsRef.current.slice();
+    for (let i = newCells.length - 1; i >= 0; i--) {
+      if (newCells[i].state !== 1) newCells[i].state++;
+      if (newCells[i].state > 4) newCells.splice(i, 1);
+    }
+    for (const rem of cellsToRemove) {
+      for (const cell of newCells) {
+        if (cell.x === rem.x && cell.y === rem.y) {
+          cell.state = 2;
+          break;
+        }
+      }
+    }
+    cellsRef.current = newCells;
+    setResult(prev => {
+      const newResult = prev[1] + cellsToRemove.length;
+      return [prev[0] === 0 ? cellsToRemove.length : prev[0], newResult];
+    });
     draw();
-    if (!shouldEnd) animationIdRef.current = requestAnimationFrame(loop);
-    else animationIdRef.current = null;
+    return newCells.filter(cell => cell.state !== 1).length === 0;
   }
 
   function getHeightMap(map: string[]) {
@@ -133,7 +121,7 @@ export default function Day04Visualization() {
   }
 
   return (
-    <Visualization day={4} year={2025} render={initialize}>
+    <Visualization day={4} year={2025} render={start}>
       <canvas
         ref={canvasRef}
         width={700}

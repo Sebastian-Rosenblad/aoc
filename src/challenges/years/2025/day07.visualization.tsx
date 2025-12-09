@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import Visualization from '../../../components/Visualization.tsx';
+import { useAnimationLoop } from '../../../utils/useAnimationLoop.ts';
 import { real, example } from './day07.data.ts';
 
 interface Beam {
@@ -12,17 +13,18 @@ export default function Day07Visualization() {
   const [size, setSize] = useState<number>(0);
 
   const canvasRef = useRef<HTMLDivElement | null>(null);
-  const animationIdRef = useRef<number | null>(null);
-  const lastTimeRef = useRef<number | null>(null);
-  const updateTimeRef = useRef<number>(0);
   const manifoldRef = useRef<string[]>([]);
   const beamsRef = useRef<Beam[]>([]);
   const indexRef = useRef<number>(0);
   const resultRef = useRef<number[]>([-1, -1]);
-  const animationSpeedRef = useRef<number>(125);
+
+  const { start } = useAnimationLoop({
+    animationSpeed: 125,
+    initialize,
+    step
+  });
 
   function initialize(input: 'example' | 'real') {
-    if (animationIdRef.current !== null) return;
     const data = (input === 'example' ? example : real).split('\n');
     setSize(Math.min((canvasRef.current?.clientWidth || 1000) / data[0].length, 35));
     setDisplay(data.map(line => <>{line}</>));
@@ -30,25 +32,7 @@ export default function Day07Visualization() {
     beamsRef.current = [{ x: data[0].indexOf('S'), t: 1 }];
     indexRef.current = 0;
     resultRef.current = [0, 1];
-    animationSpeedRef.current = 2000 / data.length;
-    updateTimeRef.current = 0;
-    lastTimeRef.current = null;
-    animationIdRef.current = requestAnimationFrame(loop);
-  }
-
-  function loop(timestamp: number) {
-    const lastTime = lastTimeRef.current;
-    const dt = lastTime === null ? 0 : timestamp - lastTime;
-    lastTimeRef.current = timestamp;
-    let newUpdateTime = updateTimeRef.current + dt;
-    let shouldEnd = false;
-    if (newUpdateTime >= animationSpeedRef.current) {
-      newUpdateTime -= animationSpeedRef.current;
-      if (step()) shouldEnd = true;
-    }
-    updateTimeRef.current = newUpdateTime;
-    if (!shouldEnd) animationIdRef.current = requestAnimationFrame(loop);
-    else animationIdRef.current = null;
+    return 2000 / data.length;
   }
 
   function step() {
@@ -100,7 +84,7 @@ export default function Day07Visualization() {
   }
 
   return (
-    <Visualization day={7} year={2025} render={initialize}>
+    <Visualization day={7} year={2025} render={start}>
       <div
         ref={canvasRef}
         style={{

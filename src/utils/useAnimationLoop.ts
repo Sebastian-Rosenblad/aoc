@@ -34,7 +34,8 @@ export function useAnimationLoop({
 
   function start(input: InputType) {
     if (animationIdRef.current !== null) return;
-    initialize(input);
+    const newAnimationSpeed = initialize(input);
+    if (newAnimationSpeed !== undefined) animationSpeed = newAnimationSpeed;
     timeSinceUpdateRef.current = 0;
     lastTimeRef.current = null;
     animationIdRef.current = requestAnimationFrame(loop);
