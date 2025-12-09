@@ -133,7 +133,7 @@ export default function Day04Visualization() {
   }
 
   return (
-    <Visualization day={4} year={2025} render={{ two: initialize }}>
+    <Visualization day={4} year={2025} render={initialize}>
       <canvas
         ref={canvasRef}
         width={700}

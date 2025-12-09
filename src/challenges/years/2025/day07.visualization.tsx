@@ -100,7 +100,7 @@ export default function Day07Visualization() {
   }
 
   return (
-    <Visualization day={7} year={2025} render={{ two: initialize }}>
+    <Visualization day={7} year={2025} render={initialize}>
       <div
         ref={canvasRef}
         style={{
