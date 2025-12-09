@@ -190,9 +190,7 @@ export default function Day08Visualization() {
 
   function randomColor(): string {
     const h = Math.floor(Math.random() * 360);
-    const s = Math.floor(40 + Math.random() * 61);
-    const l = Math.floor(40 + Math.random() * 21);
-    return `hsl(${h}, ${s}%, ${l}%)`;
+    return `hsl(${h}, 100%, 30%)`;
   }
 
   return (

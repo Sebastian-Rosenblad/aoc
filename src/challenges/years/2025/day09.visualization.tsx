@@ -131,14 +131,14 @@ export default function Day09Visualization() {
       ctx.beginPath();
       ctx.moveTo(ps[i - 1].x * drawSize.current, ps[i - 1].y * drawSize.current);
       ctx.lineTo(ps[i].x * drawSize.current, ps[i].y * drawSize.current);
-      ctx.strokeStyle = '#0f0';
+      ctx.strokeStyle = '#090';
       ctx.lineWidth = 1;
       ctx.stroke();
     }
     for (let i = 0; i < ps.length; i++) {
       ctx.beginPath();
       ctx.arc(ps[i].x * drawSize.current, ps[i].y * drawSize.current, 2, 0, Math.PI * 2);
-      ctx.fillStyle = '#f00';
+      ctx.fillStyle = '#900';
       ctx.fill();
     }
     if (biggest.current[0]) {
@@ -149,10 +149,10 @@ export default function Day09Visualization() {
         (biggest.current[0].max.x - biggest.current[0].min.x) * drawSize.current,
         (biggest.current[0].max.y - biggest.current[0].min.y) * drawSize.current
       );
-      ctx.strokeStyle = '#0ff';
+      ctx.strokeStyle = '#099';
       ctx.lineWidth = 1;
       ctx.stroke();
-      ctx.fillStyle = 'rgba(0, 255, 255, 0.1)';
+      ctx.fillStyle = '#0099991a';
       ctx.fill();
     }
     if (biggest.current[1]) {
@@ -163,10 +163,10 @@ export default function Day09Visualization() {
         (biggest.current[1].max.x - biggest.current[1].min.x) * drawSize.current,
         (biggest.current[1].max.y - biggest.current[1].min.y) * drawSize.current
       );
-      ctx.strokeStyle = '#f0f';
+      ctx.strokeStyle = '#909';
       ctx.lineWidth = 1;
       ctx.stroke();
-      ctx.fillStyle = 'rgba(255, 0, 255, 0.1)';
+      ctx.fillStyle = '#9900991a';
       ctx.fill();
     }
     if (checking.current) {
@@ -177,10 +177,10 @@ export default function Day09Visualization() {
         (checking.current.max.x - checking.current.min.x) * drawSize.current,
         (checking.current.max.y - checking.current.min.y) * drawSize.current
       );
-      ctx.strokeStyle = '#ff0';
+      ctx.strokeStyle = '#990';
       ctx.lineWidth = 1;
       ctx.stroke();
-      ctx.fillStyle = 'rgba(255, 255, 0, 0.1)';
+      ctx.fillStyle = '#9999001a';
       ctx.fill();
     }
   }
@@ -197,8 +197,8 @@ export default function Day09Visualization() {
         top: 0,
         left: 0
       }}>
-        <p>Part 1: {result[0]}</p>
-        <p>Part 2: {result[1]}</p>
+        <p>Part 1: <span style={{ color: '#099' }}>{result[0]}</span></p>
+        <p>Part 2: <span style={{ color: '#909' }}>{result[1]}</span></p>
       </div>
     </Visualization>
   );

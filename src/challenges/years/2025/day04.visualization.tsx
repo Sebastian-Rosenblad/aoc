@@ -101,10 +101,10 @@ export default function Day04Visualization() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const radius = (cellSize * Math.SQRT2) / 2;
     const stateColors: Record<number, string> = {
-      1: 'hsla(120, 80%, 50%, 1.00)',
-      2: 'hsla(60, 80%, 50%, 1.00)',
-      3: 'hsla(30, 80%, 50%, 1.00)',
-      4: 'hsla(0, 80%, 50%, 1.00)',
+      1: '#009900',
+      2: '#999900',
+      3: '#996600',
+      4: '#990000',
     };
     const drawOrder = [1, 4, 3, 2];
     for (const state of drawOrder) {

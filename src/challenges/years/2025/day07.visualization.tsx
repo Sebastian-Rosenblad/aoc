@@ -80,7 +80,7 @@ export default function Day07Visualization() {
   function getColor(t: number, min: number, max: number) {
     const intensity = Math.min(1, (t - min) / (max - min) || 0);
     const hue = 300 - 300 * intensity;
-    return `hsl(${hue}, 100%, 50%)`;
+    return `hsl(${hue}, 100%, 30%)`;
   }
 
   return (
