@@ -23,13 +23,14 @@ interface line {
 
 interface circuit {
   indexes: number[];
+  lines: line[];
   color: string;
 }
 
 export default function Day08Visualization() {
   const [result, setResult] = useState<[number | undefined, number | undefined]>([undefined, undefined]);
   
-  const aniSpeed = 50;
+  const aniSpeed = 125;
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const points = useRef<v3d[]>([]);
@@ -65,7 +66,7 @@ export default function Day08Visualization() {
     }
     points.current = data;
     distances.current = dists.sort((a, b) => a.distance - b.distance);
-    circuits.current = data.map((_, i) => ({ color: randomColor(), indexes: [i] }));
+    circuits.current = data.map((_, i) => ({ color: randomColor(), lines: [], indexes: [i] }));
     distIndex.current = 0;
     linesPerUpdate.current = (input === 'example' ? 50 : 5000) / (5000 / aniSpeed);
     partOneDone.current = input === 'example' ? 10 : 1000;
@@ -95,9 +96,12 @@ export default function Day08Visualization() {
       let double = false;
       for (let j = 0; j < cs.length; j++) {
         if (cs[j].indexes.includes(a)) {
-          drawLines.push({ from: points.current[a], to: points.current[b], color: cs[j].color });
           joint = j;
-          if (!cs[j].indexes.includes(b)) cs[j].indexes.push(b);
+          if (!cs[j].indexes.includes(b)) {
+            drawLines.push({ from: points.current[a], to: points.current[b], color: cs[j].color });
+            cs[j].indexes.push(b);
+            cs[j].lines.push({ from: points.current[a], to: points.current[b], color: cs[j].color });
+          }
           else double = true;
           break;
         }
@@ -107,11 +111,12 @@ export default function Day08Visualization() {
         if (joint !== j && cs[j].indexes.includes(b)) {
           if (joint < 0) {
             cs[j].indexes.push(a);
+            cs[j].lines.push({ from: points.current[a], to: points.current[b], color: cs[j].color });
             drawLines.push({ from: points.current[a], to: points.current[b], color: cs[j].color });
           }
           else {
             const merged = merge(cs[j], cs[joint]);
-            drawLines[drawLines.length - 1].color = merged.color;
+            drawLines.push(...merged.lines);
             cs[j] = merged;
             cs.splice(joint, 1);
           }
@@ -128,7 +133,9 @@ export default function Day08Visualization() {
     }
     circuits.current = cs;
     distIndex.current = i;
-    draw(drawLines);
+    draw(drawLines.filter((line, i) => {
+      return drawLines.findLastIndex(l => l.from === line.from && l.to === line.to) === i;
+    }));
     return cs.length === 1;
   }
 
@@ -137,7 +144,11 @@ export default function Day08Visualization() {
     a.indexes.forEach(n => merged.add(n));
     b.indexes.forEach(n => merged.add(n));
     const color = a.indexes.length > b.indexes.length ? a.color : b.color;
-    return { color, indexes: Array.from(merged) };
+    return {
+      color,
+      lines: [...a.lines, ...b.lines].map(line => ({ ...line, color })),
+      indexes: Array.from(merged)
+    };
   }
 
   function drawDots(dots: v3d[]) {
