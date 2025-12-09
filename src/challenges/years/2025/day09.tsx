@@ -1,8 +1,9 @@
 import Template from '../../../components/Template.tsx';
 import type { Meta } from '../../types';
 import { real, example } from './day09.data.ts';
+import visualization from './day09.visualization.tsx';
 
-export const meta: Meta = { year: 2025, day: 9, status: 'gold', times: { one: 622, two: 3143 } };
+export const meta: Meta = { year: 2025, day: 9, status: 'gold', times: { one: 622, two: 3143 }, visualization };
 
 interface v2d {
   x: number;
