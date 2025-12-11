@@ -65,9 +65,28 @@ export default function Day10() {
     const data = parse(input);
     let solution = 0;
     for (const machine of data) {
-      // What to do
+      const target = machine.joltage;
+      const buttons = machine.buttons.sort((a, b) => b.length - a.length);
+      const value = bruteForce(target, buttons, 0);
+      if (value >= 0) solution += value;
+      else console.error('No solution found for machine', machine);
+      console.log(value);
     }
     return solution.toString();
+  }
+
+  function bruteForce(target: number[], buttons: number[][], presses: number): number {
+    if (target.every(t => t === 0)) return presses;
+    if (buttons.length === 0) return -1;
+    const button = buttons[0];
+    const max = Math.min(...button.map(i => target[i]));
+    for (let i = max; i >= 0; i--) {
+      const newTarget = [...target];
+      for (const index of button) newTarget[index] -= i;
+      const result = bruteForce(newTarget, buttons.slice(1), presses + i);
+      if (result >= 0) return result;
+    }
+    return -1;
   }
 
   return (
