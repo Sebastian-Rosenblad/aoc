@@ -4,61 +4,77 @@ import { real, example } from './day15.data.ts';
 
 export const meta: Meta = { year: 2023, day: 15, status: 'other', times: { one: 353, two: 2836 } };
 
-interface DataM {
-  box: number;
+interface Lens {
   label: string;
   focal: number;
 }
 
+interface Step extends Lens {
+  operation: '=' | '-';
+}
+
 export default function Day15() {
+  const record: Record<string, number> = {};
+
   function parse(input: string) {
-    return input.split(/\r?\n/);
+    const lines = input.split(',');
+    return lines;
+  }
+
+  function parseSteps(lines: string[]) {
+    return lines.map(line => {
+      const i = line.indexOf('=');
+      if (i > 0) return {
+        label: line.substring(0, i),
+        operation: '=',
+        focal: parseInt(line.substring(i + 1))
+      } as Step;
+      return {
+        label: line.substring(0, line.indexOf('-')),
+        operation: '-',
+        focal: -1
+      } as Step;
+    });
   }
 
   function one(input: string): string {
-    return calculate(parse(input), true);
+    return parse(input).map(step => hash(step)).reduce((a, b) => a + b, 0).toString();
   }
 
   function two(input: string): string {
-    return calculate(parse(input), false);
-  }
-
-  function calculate(a: Array<string>, partOne: boolean): string {
-    let steps: Array<string> = a[0].split(',');
-    if (partOne)
-      return steps.map(step => hash(step)).reduce((a, b) => a + b, 0).toString();
-    let hashmap: Array<DataM> = a[0].split(',').map(step => {
-      let l: string = step.includes('=') ? step.split('=')[0] : step.split('-')[0];
-      return {
-        box: hash(l),
-        label: l,
-        focal: step.includes('=') ? parseInt(step.split('=')[1]) : -1
-      };
-    });
-    return boxes(hashmap).map((box, i) => box.map((slot, i) => slot.focal * (i + 1)).reduce((a, b) => a + b, 0) * (i + 1)).reduce((a, b) => a + b, 0).toString();
+    const steps = parseSteps(parse(input));
+    const boxes = getFinalBoxes(steps);
+    let solution = 0;
+    for (let i = 0; i < boxes.length; i++) {
+      for (let j = 0; j < boxes[i].length; j++) {
+        solution += (i + 1) * (j + 1) * boxes[i][j].focal;
+      }
+    }
+    return solution.toString();
   }
 
   function hash(chars: string): number {
+    if (record[chars] !== undefined) return record[chars];
     let current: number = 0;
     chars.split('').forEach(char => {
       current += char.charCodeAt(0);
       current *= 17;
       current %= 256;
     });
+    record[chars] = current;
     return current;
   }
 
-  function boxes(hashmap: Array<DataM>): Array<Array<DataM>> {
-    let boxes: Array<Array<DataM>> = new Array(256).fill(0).map(() => []);
-    hashmap.forEach(h => {
-      let box: number = hash(h.label);
-      let index: number = boxes[box].findIndex(b => b.label === h.label);
-      if (h.focal < 0) if (index >= 0) boxes[box].splice(index, 1);
-      else {
-        if (index >= 0) boxes[box][index] = h;
-        else boxes[box].push(h);
-      }
-    });
+  function getFinalBoxes(steps: Step[]) {
+    const boxes = new Array(256).fill([]).map(_ => [] as Lens[]);
+    for (const step of steps) {
+      const box = boxes[hash(step.label)];
+      const i = box.findIndex(b => b.label === step.label);
+      if (i >= 0) {
+        if (step.operation === '=') box[i].focal = step.focal;
+        else box.splice(i, 1);
+      } else if (step.operation === '=') box.push({ label: step.label, focal: step.focal });
+    }
     return boxes;
   }
 
