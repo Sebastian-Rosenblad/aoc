@@ -2,7 +2,7 @@ import Template from '../../../components/Template.tsx';
 import type { Meta } from '../../types';
 import { real, example } from './day10.data.ts';
 
-export const meta: Meta = { year: 2025, day: 10, status: 'silver', times: { one: 2040 } };
+export const meta: Meta = { year: 2025, day: 10, status: 'gold', times: { one: 2040, two: 86400 } };
 
 interface Machine {
   lights: string[];

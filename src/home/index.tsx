@@ -29,26 +29,29 @@ export default function Home() {
         <a href='https://adventofcode.com/' target='_blank' rel='noopener noreferrer' className='small align-icon'><FiExternalLink /> Advent of Code</a>
       </div>
       <ul className='years-list'>
-        {Object.entries(groups).map(([year, items]) => (
-          <li key={year} className='year-list'>
-            <h2>
-              <a href={`https://adventofcode.com/${year}`} target='_blank' rel='noopener noreferrer'>[{year}]</a>
-              <span className='quiet'> <Stars stars={['gold']} small />{getTotalStars(items)}/{year === '2025' ? 24 : 50}</span>
-            </h2>
-            <ul>
-              {items.map((c) => (
-                <li key={c.path}>
-                  <span className='day-main'>
-                    <Link to={c.path}>[Day {c.day.toString().padStart(2, '0')}]</Link>
-                    <Stars status={c.status} small />
-                    {c.visualization && <Link to={`${c.path}/visualization`} className='visualization-link'><FiImage /></Link>}
-                  </span>
-                  {c.times && <p className='small'><Times times={c.times} /></p>}
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
+        {Object.entries(groups)
+          .sort(([a], [b]) => Number(b) - Number(a))
+          .map(([year, items]) => (
+            <li key={year} className='year-list'>
+              <h2>
+                <a href={`https://adventofcode.com/${year}`} target='_blank' rel='noopener noreferrer'>[{year}]</a>
+                <span className='quiet'> <Stars stars={['gold']} small />{getTotalStars(items)}/{year === '2025' ? 24 : 50}</span>
+              </h2>
+              <ul>
+                {items.map((c) => (
+                  <li key={c.path}>
+                    <span className='day-main'>
+                      <Link to={c.path}>[Day {c.day.toString().padStart(2, '0')}]</Link>
+                      <Stars status={c.status} small />
+                      {c.visualization && <Link to={`${c.path}/visualization`} className='visualization-link'><FiImage /></Link>}
+                    </span>
+                    {c.times && <p className='small'><Times times={c.times} /></p>}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
       </ul>
     </main>
   );
