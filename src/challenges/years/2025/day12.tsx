@@ -2,7 +2,7 @@ import Template from '../../../components/Template.tsx';
 import type { Meta } from '../../types';
 import { real, example } from './day12.data.ts';
 
-export const meta: Meta = { year: 2025, day: 12, status: 'started' };
+export const meta: Meta = { year: 2025, day: 12, status: 'gold', times: { one: 2582, two: 2619 } };
 
 interface v2d {
   x: number;
@@ -74,9 +74,7 @@ export default function Day12() {
   }
 
   function two(input: string): string {
-    const { shapes, areas } = parse(input);
-    let solution = 0;
-    return solution.toString();
+    return '0';
   }
 
   return (

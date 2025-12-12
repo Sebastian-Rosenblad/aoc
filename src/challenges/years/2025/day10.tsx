@@ -62,7 +62,9 @@ export default function Day10() {
   }
 
   function two(input: string): string {
-    const data = parse(input);
+    // Used z3 solver not implemented here
+    return '0';
+    /*const data = parse(input);
     let solution = 0;
     for (const machine of data) {
       const target = machine.joltage;
@@ -72,10 +74,10 @@ export default function Day10() {
       else console.error('No solution found for machine', machine);
       console.log(value);
     }
-    return solution.toString();
+    return solution.toString();*/
   }
 
-  function bruteForce(target: number[], buttons: number[][], presses: number): number {
+  /*function bruteForce(target: number[], buttons: number[][], presses: number): number {
     if (target.every(t => t === 0)) return presses;
     if (buttons.length === 0) return -1;
     const button = buttons[0];
@@ -87,7 +89,7 @@ export default function Day10() {
       if (result >= 0) return result;
     }
     return -1;
-  }
+  }*/
 
   return (
     <Template
