@@ -2,7 +2,7 @@ import Template from '../../../components/Template.tsx';
 import type { Meta } from '../../types';
 import { real, example } from './day15.data.ts';
 
-export const meta: Meta = { year: 2023, day: 15, status: 'other', times: { one: 353, two: 2836 } };
+export const meta: Meta = { year: 2023, day: 15, status: 'gold', times: { one: 353, two: 2836 } };
 
 interface Lens {
   label: string;
