@@ -50,7 +50,8 @@ export const meta: Meta = { year: ${year}, day: ${dayNumber}, status: 'started' 
 
 export default function Day${dayPadded}() {
   function parse(input: string) {
-    return;
+    const lines = input.split('\\n');
+    return lines;
   }
 
   function one(input: string): string {
