@@ -2,7 +2,7 @@ import Template from '../../../components/Template.tsx';
 import type { Meta } from '../../types';
 import { real, example } from './day23.data.ts';
 
-export const meta: Meta = { year: 2023, day: 23, status: 'silver', times: { one: 86400 }, note: 'Part 2 real input takes up to 1 and a half minute' };
+export const meta: Meta = { year: 2023, day: 23, status: 'gold', times: { one: 86400 }, note: 'Part 2 real input takes up to 1 and a half minute' };
 
 interface v2d {
   x: number;
