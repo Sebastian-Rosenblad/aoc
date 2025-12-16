@@ -10,6 +10,7 @@ interface v2d {
 }
 
 interface Junction {
+  id: string;
   pos: v2d;
   paths: Path[];
 }
@@ -17,12 +18,13 @@ interface Junction {
 interface Path {
   out: v2d;
   len: number;
-  dest: v2d;
+  dest: string;
 }
 
 export default function Day23() {
   let map: string[];
   let ice: boolean;
+  let idToIndex: Record<string, number>;
 
   function parse(input: string) {
     map = input.trim().split('\n');
@@ -43,31 +45,32 @@ export default function Day23() {
 
   function getLongestHikeLength(startPos: v2d, endPos: v2d) {
     const junctions = [{
+      id: startPos.x + ',' + startPos.y,
       pos: startPos,
       paths: [{
         out: { x: startPos.x, y: startPos.y + 1 },
         len: -1,
-        dest: { x: -1, y: -1 }
+        dest: ''
       }]
     }, ...getJunctions()];
+    idToIndex = {};
+    junctions.forEach((j, i) => idToIndex[j.id] = i);
     calculateJunctionPaths(junctions, endPos);
-    //console.log(junctions);
-    return bruteForceSearch(junctions, junctions[0], [], endPos, 0, 0);
+    return bruteForceSearch(junctions, junctions[0], [], endPos.x + ',' + endPos.y, 0, 0);
   }
 
-  function bruteForceSearch(all: Junction[], current: Junction, seen: string[], end: v2d, length: number, max: number): number {
-    const key = current.pos.x + ',' + current.pos.y;
-    if (seen.includes(key)) return max;
+  function bruteForceSearch(all: Junction[], current: Junction, seen: string[], end: string, length: number, max: number): number {
+    if (seen.includes(current.id)) return max;
     let newMax = max;
     for (const path of current.paths) {
-      if (isEquals(path.dest, end)) {
+      if (path.dest === end) {
         newMax = Math.max(newMax, length + path.len);
         continue;
       }
       const pathLength = bruteForceSearch(
         all,
-        all.find(j => isEquals(j.pos, path.dest))!,
-        [...seen, key],
+        all[idToIndex[path.dest]],
+        [...seen, current.id],
         end,
         length + path.len,
         newMax
@@ -97,9 +100,9 @@ export default function Day23() {
           const paths = _out.map(o => ({
             out: o,
             len: -1,
-            dest: { x: -1, y: -1 }
+            dest: ''
           }));
-          junctions.push({ pos: { x: i, y: j }, paths });
+          junctions.push({ id: i + ',' + j, pos: { x: i, y: j }, paths });
         }
       }
     }
@@ -113,7 +116,7 @@ export default function Day23() {
         const steps = getSteps(path.out, junction.pos);
         const lastStep = steps[steps.length - 1];
         path.len = steps.length;
-        path.dest = lastStep;
+        path.dest = lastStep.x + ',' + lastStep.y;
       }
     }
   }
